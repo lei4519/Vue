@@ -44,7 +44,7 @@ router.get('/students', function (req, res) {
   })
 
   .post('/students/edit', function (req, res) {
-    students.update(req.body, function (err, data) {
+    students.findByIdAndUpdate(req.query.id, req.body, function (err, data) {
       if (err) return res.status(500).send('Server error')
 
       res.redirect('/students')
