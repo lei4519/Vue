@@ -1,7 +1,8 @@
 const express = require('express')
 const path = require('path')
-const router = require('./router')
 const bodyParser = require('body-parser')
+const session = require('express-session')
+const router = require('./router')
 
 const app = express()
 
@@ -13,6 +14,12 @@ app.set('views', path.join(__dirname, './views/'))
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
+
+app.use(session({
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: true
+}))
 
 app.use(router)
 
