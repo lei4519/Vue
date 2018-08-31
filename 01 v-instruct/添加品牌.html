@@ -1,14 +1,15 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="../node_modules/vue/dist/vue.js"></script>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
+
 <body>
     <div id="app">
         <div class="panel panel-primary">
@@ -31,57 +32,71 @@
                 </label>
             </div>
         </div>
-
-
         <table class="table table-bordered table-hover table-striped text-center">
             <thead>
-            <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>CTIME</th>
-                <th>OPERTION</th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>CTIME</th>
+                    <th>OPERTION</th>
+                </tr>
             </thead>
             <tbody>
-            <tr v-for="item in list" :key="item.id">
-                <td>{{ item.id }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.Ctime }}</td>
-                <td>
-                    <a href="" @click.prevent="del(item.id)">删除</a>
-                </td>
-            </tr>
+                <tr v-for="item in search(keywords)" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.Ctime | dateFormat }}</td>
+                    <td>
+                        <a href="" @click.prevent="del(item.id)">删除</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
-
-
-
     </div>
-
-
     <script>
-        let vm = new Vue({
-          el: '#app',
-          data: {
+    Vue.filter('dateFormat', function (dataStr, pattern = '') {
+        let dt = new Date(dataStr)
+        let y = dt.getFullYear()
+        let m = dt.getMonth() + 1
+        let d = dt.getDate()
+        if (pattern.toLowerCase() === 'yyyy-mm-dd') {
+            return `${y}-${m}-${d}`
+        } else {
+            let hh = dt.getHours()
+            let mm = dt.getMinutes()
+            let ss = dt.getSeconds()
+            return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+        }
+    })
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
             id: '',
             name: '',
             keywords: '',
             list: [
-              {id: 1, name: '宝马', Ctime: new Date().toLocaleString()},
-              {id: 2, name: '奔驰', Ctime: new Date().toLocaleString()},
+                { id: 1, name: '宝马', Ctime: new Date() },
+                { id: 2, name: '奔驰', Ctime: new Date() },
             ]
-          },
-          methods: {
-            add(){
-              this.list.push({id: parseInt(this.id), name: this.name, Ctime: new Date().toLocaleString()})
-              this.id = this.name = ''
+        },
+        methods: {
+            add() {
+                this.list.push({ id: parseInt(this.id), name: this.name, Ctime: new Date() })
+                this.id = this.name = ''
             },
-            del(id){
-              let index = this.list.findIndex(item => item.id == id)
-              this.list.splice(index, 1)
+            del(id) {
+                let index = this.list.findIndex(item => item.id == id)
+                this.list.splice(index, 1)
+            },
+            search(keywords) {
+                return this.list.filter(item => item.name.includes(keywords))
             }
-          }
-        })
+        }
+    })
+
+    
     </script>
 </body>
+
 </html>
