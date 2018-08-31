@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <label>
+                    ID:
+                    <input type="number" class="form-control" v-model="id">
+                </label>
+                <label>
+                    NAME:
+                    <input type="text" class="form-control" v-model="name">
+                </label>
+                <input type="button" class="btn btn-primary" value="添加" @click="add">
+                <label>
+                    搜索名称关键字:
+                    <input type="text" class="form-control" v-model="keywords">
+                </label>
+            </div>
+        </div>
+
+
+        <table class="table table-bordered table-hover table-striped text-center">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>CTIME</th>
+                <th>OPERTION</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in list" :key="item.id">
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.Ctime }}</td>
+                <td>
+                    <a href="" @click.prevent="del(item.id)">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+
+    <script>
+        let vm = new Vue({
+          el: '#app',
+          data: {
+            id: '',
+            name: '',
+            keywords: '',
+            list: [
+              {id: 1, name: '宝马', Ctime: new Date().toLocaleString()},
+              {id: 2, name: '奔驰', Ctime: new Date().toLocaleString()},
+            ]
+          },
+          methods: {
+            add(){
+              this.list.push({id: parseInt(this.id), name: this.name, Ctime: new Date().toLocaleString()})
+              this.id = this.name = ''
+            },
+            del(id){
+              let index = this.list.findIndex(item => item.id == id)
+              this.list.splice(index, 1)
+            }
+          }
+        })
+    </script>
+</body>
+</html>

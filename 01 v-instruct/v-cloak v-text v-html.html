@@ -17,10 +17,12 @@
     <!-- v-html 将数据渲染为元素的HTML子节点 替换元素原有内容-->
     <div v-html="msg">{{ msg }}</div>
 
-    <!-- v-bind 绑定属性 使属性中的变量可以被解析 可以省略为 : -->
+    <!-- v-bind 绑定属性 使属性中的变量可以被解析 简写为 : -->
     <input type="submit" value="按钮" v-bind:title="msgTitle">
     <input type="submit" value="按钮" :title="msgTitle">
 
+    <!-- v-on 绑定事件 触发事件时 执行里面的函数 简写为 @ -->
+    <p>{{msg2}}</p>
 </div>
 
 <script src="../node_modules/vue/dist/vue.js"></script>
@@ -29,7 +31,11 @@
     el: '#app',
     data: {
       msg: '123',
-      msgTitle: '自定义title'
+      msgTitle: '自定义title',
+      msg2: '猥琐发育别浪'
+    },
+    methods: {
+
     }
   })
 </script>
