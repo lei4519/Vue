@@ -8,6 +8,7 @@
 </head>
 <body>
 <div id="app" class="center-block"   style="width: 1200px">
+	<input type="button" value="修改lifeCycle值" @click="lifeCycle='no'">
 	<h1 id="h1">{{ lifeCycle }}</h1>
 	<table class="table table-bordered">
       <thead>
@@ -40,8 +41,13 @@
         </tr>
         <tr>
           <th>replace el</th>
-          <td>将内存中的字符串挂载到页面上 这是实力创建期间的最后一个生命周期函数 执行完mounted后 就表示实例已经被完全创建好了</td>
+          <td>将内存中的字符串挂载到页面上 这是实力创建期间的最后一个生命周期函数 执行完mounted后 就表示实例已经被完全创建好了 开始进入运行阶段</td>
           <td>mounted()</td>
+        </tr>
+        <tr>
+          <th>data changes</th>
+          <td>数据发生了改变</td>
+          <td>beforeUpdate()</td>
         </tr>
       </tbody>
     </table>
@@ -79,6 +85,11 @@
     	// 模板已经在页面上渲染完成 
     	// 页面中的模板内容已经被替换
     	console.log(document.querySelector('#h1').innerHTML) // 生命周期
+    },
+    beforeUpdate () {
+    	// 此时数据已经更新了 但是页面内容还没有被更新
+    	console.log(document.querySelector('#h1').innerHTML) // 生命周期
+    	console.log(this.lifeCycle) // no
     }
   })
 </script>
