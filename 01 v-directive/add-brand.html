@@ -23,12 +23,12 @@
                 </label>
                 <label>
                     NAME:
-                    <input type="text" class="form-control" v-model="name">
+                    <input type="text" class="form-control" v-model="name" @keyup.f2="add">
                 </label>
                 <input type="button" class="btn btn-primary" value="添加" @click="add">
                 <label>
                     搜索名称关键字:
-                    <input type="text" class="form-control" v-model="keywords">
+                    <input type="text" class="form-control" v-model="keywords" v-focus v-color="'blue'">
                 </label>
             </div>
         </div>
@@ -47,25 +47,39 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.Ctime | dateFormat }}</td>
                     <td>
-                        <a href="" @click.prevent="del(item.id)">删除</a>
+                        <a href="" @click.prevent="del(item.id)"  v-fontsize="'14px'" v-fontweight="600">删除</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <script>
-    Vue.filter('dateFormat', function (dataStr, pattern = '') {
+    Vue.filter('dateFormat', function(dataStr, pattern = '') {
         let dt = new Date(dataStr)
         let y = dt.getFullYear()
-        let m = dt.getMonth() + 1
-        let d = dt.getDate()
+        let m = (dt.getMonth() + 1).toString().padStart(2, '0')
+        let d = dt.getDate().toString().padStart(2, '0')
         if (pattern.toLowerCase() === 'yyyy-mm-dd') {
             return `${y}-${m}-${d}`
         } else {
-            let hh = dt.getHours()
-            let mm = dt.getMinutes()
-            let ss = dt.getSeconds()
+            let hh = dt.getHours().toString().padStart(2, '0')
+            let mm = dt.getMinutes().toString().padStart(2, '0')
+            let ss = dt.getSeconds().toString().padStart(2, '0')
             return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+        }
+    })
+
+    Vue.config.keyCodes.f2 = 113
+
+    Vue.directive('focus', {
+        inserted(el) {
+            el.focus()
+        }
+    })
+
+    Vue.directive('color', {
+        bind(el, binding) {
+            el.style.color = binding.value
         }
     })
 
@@ -91,11 +105,35 @@
             },
             search(keywords) {
                 return this.list.filter(item => item.name.includes(keywords))
+            },
+        },
+        filters: {
+            dateFormat: function(dataStr, pattern = '') {
+                let dt = new Date(dataStr)
+                let y = dt.getFullYear()
+                let m = (dt.getMonth() + 1).toString().padStart(2, '0')
+                let d = dt.getDate().toString().padStart(2, '0')
+                if (pattern.toLowerCase() === 'yyyy-mm-dd') {
+                    return `${y}-${m}-${d}`
+                } else {
+                    let hh = dt.getHours().toString().padStart(2, '0')
+                    let mm = dt.getMinutes().toString().padStart(2, '0')
+                    let ss = dt.getSeconds().toString().padStart(2, '0')
+                    return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+                }
+            }
+        },
+        directives: {
+            fontweight: {
+                bind (el, binging) {
+                    el.style.fontWeight = binging.value
+                }
+            },
+            fontsize: function (el, binging) {
+                el.style.fontSize = parseInt(binging.value) + 'px'
             }
         }
     })
-
-    
     </script>
 </body>
 

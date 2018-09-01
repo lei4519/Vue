@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lifeCycle</title>
+	<script src="../node_modules/vue/dist/vue.js"></script>
+	<link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div id="app" class="center-block"   style="width: 1200px">
+	<h1 id="h1">{{ lifeCycle }}</h1>
+	<table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>生命周期</th>
+          <th>释义</th>
+          <th>结束后触发事件</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>new Vue()</th>
+          <td>开始创建一个Vue的实例对象</td>
+          <td>无</td>
+        </tr>
+        <tr>
+          <th>init: Event&lifecycle</th>
+          <td>刚初始化了一个空的Vue实例对象 对象上只有一些默认的事件和生命周期函数</td>
+          <td>beforeCreate()</td>
+        </tr>
+        <tr>
+          <th>init: injections&reactivity</th>
+          <td>Vue实例对象上的属性和方法初始化完毕</td>
+          <td>created()</td>
+        </tr>
+        <tr>
+          <th>el | template</th>
+          <td>编译模板 将Vue代码中的指令进行执行 在内存中生成编译好的最终模板字符串  但未挂载到页面中</td>
+          <td>beforeMount()</td>
+        </tr>
+        <tr>
+          <th>replace el</th>
+          <td>将内存中的字符串挂载到页面上 这是实力创建期间的最后一个生命周期函数 执行完mounted后 就表示实例已经被完全创建好了</td>
+          <td>mounted()</td>
+        </tr>
+      </tbody>
+    </table>
+	<img width="800px" src="https://cn.vuejs.org/images/lifecycle.png">
+</div>
+
+<script>
+  let vm = new Vue({
+    el: '#app',
+    data: {
+    	msg: 'ok',
+    	lifeCycle: '生命周期'
+    },
+    methods: {
+    	show () {
+    		console.log('show')
+    	}
+    },
+    beforeCreate () {
+    	// 实例被完全创建出来之前 执行此函数
+    	// 此时实例上的方法和属性都还未被初始化
+    	console.log(this.msg) // undefined
+    },
+    created () {
+    	// 实例被完全创建出来后执行此函数
+    	console.log(this.msg) // ok
+    	console.log(this.show()) // show
+    },
+    beforeMount () {
+    	// 模板已经在内存中编译完成 尚未渲染到页面中
+    	// 执行时页面中的模板内容还没有被替换
+    	console.log(document.querySelector('#h1').innerHTML) // {{ lifeCycle }}
+    },
+    mounted () {
+    	// 模板已经在页面上渲染完成 
+    	// 页面中的模板内容已经被替换
+    	console.log(document.querySelector('#h1').innerHTML) // 生命周期
+    }
+  })
+</script>
+</body>
+</html>
