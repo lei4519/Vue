@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-comp></my-comp>
+</div>
+
+<div id="app2">
+    <my-comp></my-comp>
+    <login></login>
+</div>
+
+
+<template id="temp1">
+    <div>
+        <h1>这是由extend创建出来的元素</h1>
+    </div>
+</template>
+
+
+<template id="login1">
+    <div>
+        <h1>这是vm2私有的login组件</h1>
+    </div>
+</template>
+
+<script>
+
+  Vue.component('myComp', {
+    template: '#temp1'
+  })
+
+  let vm = new Vue({
+    el: '#app'
+  })
+
+  let vm2 = new Vue({
+    el: '#app2',
+    components:{ // 定义实例内部的私有组件
+      login: {
+        template: '#login1'
+      }
+    },
+    updated(){}
+  })
+</script>
+</body>
+</html>

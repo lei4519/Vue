@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-comp></my-comp>
+    </div>
+
+    <!--组件模板结构-->
+    <template id="temp1">
+        <div>
+            <h1>这是由extend创建出来的元素</h1>
+        </div>
+    </template>
+
+    <script>
+        // 通过extend创建组件模板 使用component将模板挂载到全局组件上 在html中使用定义好的名字当做标签引入
+        // Vue.component('myComp', Vue.extend({
+        //   template: '<h1>这是由extend创建出来的元素</h1>'
+        // }))
+
+        // Vue.extend也可以简写为一个对象字面量
+        // Vue.component('myComp', {
+        //   template: '<h1>这是由extend创建出来的元素</h1>'
+        // })
+
+        // 可以在被Vue控制的元素外面 使用template标签 定义template组件的模板结构 使用ID引入模板
+        Vue.component('myComp', {
+          template: '#temp1'
+        })
+
+
+        let vm = new Vue({
+          el: '#app',
+          data: {
+
+          },
+          methods: {
+
+          }
+        })
+    </script>
+</body>
+</html>

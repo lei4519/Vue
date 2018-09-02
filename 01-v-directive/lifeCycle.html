@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>lifeCycle</title>
-	<script src="../node_modules/vue/dist/vue.js"></script>
-	<link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body>
 <div id="app" class="center-block"   style="width: 1200px">
-	<input type="button" value="修改lifeCycle值" @click="lifeCycle='no'">
-	<h1 id="h1">{{ lifeCycle }}</h1>
-	<table class="table table-bordered">
+  <input type="button" value="修改lifeCycle值" @click="lifeCycle='no'">
+  <h1 id="h1">{{ lifeCycle }}</h1>
+  <table class="table table-bordered">
       <thead>
         <tr>
           <th>生命周期</th>
@@ -49,47 +49,67 @@
           <td>数据发生了改变</td>
           <td>beforeUpdate()</td>
         </tr>
+        <tr>
+          <th>DOM re-render</th>
+          <td>页面内容重新渲染完毕</td>
+          <td>updated()</td>
+        </tr>
+        <tr>
+          <th>Destroy</th>
+          <td>Vue实例开始销毁 实例中的所有数据都还可用</td>
+          <td>beforeDestroy()</td>
+        </tr>
+        <tr>
+          <th>Destroyed</th>
+          <td>Vue实例销毁完毕 实例中的所有数据都不在可用</td>
+          <td>destroyed()</td>
+        </tr>
       </tbody>
     </table>
-	<img width="800px" src="https://cn.vuejs.org/images/lifecycle.png">
+  <img width="800px" src="https://cn.vuejs.org/images/lifecycle.png">
 </div>
 
 <script>
   let vm = new Vue({
     el: '#app',
     data: {
-    	msg: 'ok',
-    	lifeCycle: '生命周期'
+      msg: 'ok',
+      lifeCycle: '生命周期'
     },
     methods: {
-    	show () {
-    		console.log('show')
-    	}
+      show () {
+        console.log('show')
+      }
     },
     beforeCreate () {
-    	// 实例被完全创建出来之前 执行此函数
-    	// 此时实例上的方法和属性都还未被初始化
-    	console.log(this.msg) // undefined
+      // 实例被完全创建出来之前 执行此函数
+      // 此时实例上的方法和属性都还未被初始化
+      console.log(this.msg) // undefined
     },
     created () {
-    	// 实例被完全创建出来后执行此函数
-    	console.log(this.msg) // ok
-    	console.log(this.show()) // show
+      // 实例被完全创建出来后执行此函数
+      console.log(this.msg) // ok
+      console.log(this.show()) // show
     },
     beforeMount () {
-    	// 模板已经在内存中编译完成 尚未渲染到页面中
-    	// 执行时页面中的模板内容还没有被替换
-    	console.log(document.querySelector('#h1').innerHTML) // {{ lifeCycle }}
+      // 模板已经在内存中编译完成 尚未渲染到页面中
+      // 执行时页面中的模板内容还没有被替换
+      console.log(document.querySelector('#h1').innerHTML) // {{ lifeCycle }}
     },
     mounted () {
-    	// 模板已经在页面上渲染完成 
-    	// 页面中的模板内容已经被替换
-    	console.log(document.querySelector('#h1').innerHTML) // 生命周期
+      // 模板已经在页面上渲染完成 
+      // 页面中的模板内容已经被替换
+      console.log(document.querySelector('#h1').innerHTML) // 生命周期
     },
     beforeUpdate () {
-    	// 此时数据已经更新了 但是页面内容还没有被更新
-    	console.log(document.querySelector('#h1').innerHTML) // 生命周期
-    	console.log(this.lifeCycle) // no
+      // 此时数据已经更新了 但是页面内容还没有被更新
+      console.log(document.querySelector('#h1').innerHTML) // 生命周期
+      console.log(this.lifeCycle) // no
+    },
+    updated () {
+      // 此时页面内容已经与数据同步完毕
+      console.log(document.querySelector('#h1').innerHTML) // no
+      console.log(this.lifeCycle) // no
     }
   })
 </script>

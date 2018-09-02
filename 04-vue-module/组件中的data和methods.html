@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-comp></my-comp>
+</div>
+
+<template id="temp1">
+    <div>
+        <h1>这是全局组件 --- {{ msg }}</h1>
+    </div>
+</template>
+
+<script>
+
+  Vue.component('myComp', {
+    template: '#temp1',
+    data () {
+      return {
+        msg: 'this is component\'s own private property'
+      }
+    }
+  })
+
+  let vm = new Vue({
+    el: '#app'
+  })
+</script>
+</body>
+</html>
