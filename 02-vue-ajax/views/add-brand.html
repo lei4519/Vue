@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/lib/vue.js"></script>
+    <script src="/lib/vue-resource.js"></script>
+    <link rel="stylesheet" href="/lib/bootstrap.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <label>
+                    ID:
+                    <input type="number" class="form-control" v-model="id">
+                </label>
+                <label>
+                    NAME:
+                    <input type="text" class="form-control" v-model="name" @keyup.f2="add">
+                </label>
+                <input type="button" class="btn btn-primary" value="添加" @click="add">
+                <label>
+                    搜索名称关键字:
+                    <input type="text" class="form-control" v-model="keywords" v-focus>
+                </label>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover table-striped text-center">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>CTIME</th>
+                    <th>OPERTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in list" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.Ctime | dateFormat }}</td>
+                    <td>
+                        <a href="" @click.prevent="del(item.id)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: '',
+            keywords: '',
+            list: [
+                { id: 1, name: '宝马', Ctime: new Date() },
+                { id: 2, name: '奔驰', Ctime: new Date() },
+            ]
+        },
+        methods: {
+            add() {
+                this.list.push({ id: parseInt(this.id), name: this.name, Ctime: new Date() })
+                this.id = this.name = ''
+            },
+            del(id) {
+                let index = this.list.findIndex(item => item.id == id)
+                this.list.splice(index, 1)
+            },
+            search(keywords) {
+                return this.list.filter(item => item.name.includes(keywords))
+            },
+            getAllList () {
+                this.$http.get('/queryAll')
+                    .then( result => {
+                        let result = result.body
+                        if (result.status === 0) {
+                            this.list = result.message
+                            console.log(result.message)
+                        } else {
+                            alert('获取数据失败')
+                        }
+                    })
+                    // 未完成
+            }
+        },
+        filters: {
+            dateFormat: function(dataStr, pattern = '') {
+                let dt = new Date(dataStr)
+                let y = dt.getFullYear()
+                let m = (dt.getMonth() + 1).toString().padStart(2, '0')
+                let d = dt.getDate().toString().padStart(2, '0')
+                if (pattern.toLowerCase() === 'yyyy-mm-dd') {
+                    return `${y}-${m}-${d}`
+                } else {
+                    let hh = dt.getHours().toString().padStart(2, '0')
+                    let mm = dt.getMinutes().toString().padStart(2, '0')
+                    let ss = dt.getSeconds().toString().padStart(2, '0')
+                    return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+                }
+            }
+        },
+        directives: {
+          focus: {
+            inserted: function (el) {
+              el.focus()
+            }
+          }
+        },
+        created () {
+            this.getAllList()
+        }
+    })
+
+    </script>
+</body>
+
+</html>

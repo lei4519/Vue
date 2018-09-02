@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../node_modules/vue/dist/vue.js"></script>
+	<!-- 2. 自定义两组样式 来控制transition内部的元素时限动画 -->
+	<style>
+		h3{
+			width: 200px;
+		}
+		/*进入元素之前 离开元素之后*/
+		.v-enter,
+		.v-leave-to{
+			opacity: 0;
+			transform: translateX(180px);
+		}
+		/*进入元素时间段 离开元素时间段*/
+		.v-enter-active,
+		.v-leave-active{
+			transition: all 0.8s ease;
+		}
+		
+		/*进入元素之前 离开元素之后*/
+		.my-enter,
+		.my-leave-to{
+			opacity: 0;
+			transform: translateY(150px);
+		}
+		/*进入元素时间段 离开元素时间段*/
+		.my-enter-active,
+		.my-leave-active{
+			transition: all 0.8s ease;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="toggle" @click="flag=!flag">
+		<!-- 1. 使用transition标签 将需要被动画控制的元素包裹起来 -->
+		<transition>	
+			<h3 v-if="flag">我是一个H3</h3>
+		</transition>
+
+		<hr>
+
+		<input type="button" value="toggle2" @click="flag2=!flag2">
+		<!-- 1. 使用transition标签 将需要被动画控制的元素包裹起来 -->
+		<transition name="my">	
+			<h4 v-if="flag2">我是一个H4</h4>
+		</transition>
+	</div>	
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			flag: false,
+			flag2: false
+		}
+	})
+</script>
+</body>
+</html>
