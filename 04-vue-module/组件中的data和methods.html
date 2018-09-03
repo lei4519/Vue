@@ -25,6 +25,7 @@
     template: '#temp1',
     data () {
       return {
+        // 为防止多个组件之间相互影响属性值  每次创建组件时都会随之创建一个新对象
         msg: 'this is component\'s own private property'
       }
     }
