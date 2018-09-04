@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--通过属性绑定传递属性 通过事件绑定传递方法
+        子组件使用props 数组接收属性
+        在子组件内部定义方法 使用this.$emit('func)来触发传递的方法
+        -->
+        <comp :msg="msg" @func="show"></comp>
+    </div>
+
+    <template id="temp">
+        <div>
+            <h1>子组件 {{msg}}</h1>
+            <button @click="myclick">点击</button>
+        </div>
+    </template>
+    <script>
+        let comp = {
+          template: '#temp',
+          props: ['msg'],
+          methods: {
+            myclick () {
+              // 第二个参数及以后的参数就是传参的参数
+              this.$emit('func', 123)
+            }
+          }
+        }
+
+        let vm = new Vue({
+          el: '#app',
+          data: {
+            msg: '这是父组件的属性'
+          },
+          methods: {
+            show (data) {
+              alert('这是父组件的方法' + data)
+            }
+          },
+          components: {
+            comp
+          }
+        })
+    </script>
+</body>
+</html>

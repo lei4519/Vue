@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <temp ref="temp"></temp>
+        <h3 ref="h3">天气不错</h3>
+    </div>
+
+
+    <script>
+        // 通过$refs属性可以获取dom元素和组件的引用
+        // 获取到组件的引用之后 就可以获取组件上的属性和方法了
+        let temp = {
+          template: '<h1>哈哈哈</h1>',
+          data () {
+            return {
+              msg: 'this template message'
+            }
+          },
+          methods: {
+            say () {
+              console.log('this is template say function')
+            }
+          }
+        }
+
+        let vm = new Vue({
+          el: '#app',
+          data: {
+
+          },
+          methods: {
+            getRefs () {
+              console.log(this.$refs)
+            }
+          },
+          created () {
+            this.getRefs()
+          },
+          components: {
+            temp
+          }
+        })
+    </script>
+</body>
+</html>
