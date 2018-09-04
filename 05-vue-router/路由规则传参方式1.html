@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <!-- 使用问号参数的方式向路由组件传递参数 -->
+    <router-link to="/login?id=0&name=zs">登录</router-link>
+    <router-link to="/register?id=1">注册</router-link>
+    <router-view></router-view>
+</div>
+
+
+<script>
+    // 在路由组件中 this.$route对象上保存着这个路由的相关信息
+    // 其中 this.$route.query 里保存的是问号参数的信息
+  let login = {
+    template: '<h1>登录组件 --- {{ $route.query.id }} --- {{ $route.query.name }}</h1>',
+    data () {
+      return {
+        msg: '123'
+      }
+    },
+    created () {
+      console.log(this.$route.query.id)
+    }
+  }
+
+  let register = {
+    template: '<h1>注册组件</h1>',
+    created () {
+    }
+  }
+
+  let router = new VueRouter({
+    routes: [
+      {path: '/', redirect: '/login'},
+      {path: '/login', component: login},
+      {path: '/register', component: register}
+    ]
+  })
+
+  let vm = new Vue({
+    el: '#app',
+    data: {},
+    methods: {},
+    router: router
+  })
+</script>
+</body>
+</html>

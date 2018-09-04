@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        /*高亮激活路由*/
+        .router-link-active, .myactive{
+            color: red;
+            font-weight: 900;
+        }
+        .v-enter,
+        .v-leave-to{
+            transform: translateX(150px);
+        }
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--不推荐使用 vue-router为我们提供了更好的写法-->
+        <!--<a href="#/login">登录</a>-->
+        <!--<a href="#/register">注册</a>-->
+        <!--router-link 默认被渲染为a标签 可以使用tag来改变为其他标签 -->
+        <router-link to="/login" tag="span">登录</router-link>
+        <router-link to="/register">注册</router-link>
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </div>
+
+
+    <script>
+        // 路由组件模板
+        let login = {
+          template: '<h1>登录组件</h1>'
+        }
+        let register = {
+          template: '<h1>注册组件</h1>'
+        }
+        // 路由实例对象 初始化时传入配置对象
+        let routerObj = new VueRouter({
+          routes: [
+            // 配置路由路径 和路径相应的组件模板
+            // 这里的redirect只是修改了hash值 和服务端的重定向是两码事
+            { path: '/', redirect: '/login' },
+            { path: '/login', component:login },
+            { path: '/register', component:register }
+          ],
+          // 配置linkActiveClass来设置激活时的类名
+          linkActiveClass: 'myactive'
+        })
+
+
+
+        let vm = new Vue({
+          el: '#app',
+          data: {
+
+          },
+          methods: {
+
+          },
+          // 在Vue中挂载路由对象
+          router: routerObj
+        })
+    </script>
+</body>
+</html>

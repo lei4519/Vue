@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html, body,#app{
+            height: 100%;
+            text-align: center;
+            line-height: 80px;
+        }
+        .header{
+            background-color: #ffff00;
+            height: 10%;
+            margin-bottom: 10px;
+        }
+        .container{
+            display: flex;
+            height: 90%;
+        }
+        .sidebar{
+            background-color: aquamarine;
+            margin-right: 10px;
+            flex: 2;
+        }
+        .main{
+            background-color: cyan;
+            flex: 8;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <router-view name="header"></router-view>
+    <div class="container">
+        <router-view name="sidebar"></router-view>
+        <router-view name="main"></router-view>
+    </div>
+</div>
+
+
+
+<script>
+  let header = {
+    template: '<h1 class="header">header</h1>'
+  }
+
+  let sidebar = {
+    template: '<h1 class="sidebar">sidebar</h1>'
+  }
+
+  let main = {
+    template: '<h1 class="main">main</h1>'
+  }
+
+  let router = new VueRouter({
+    routes: [
+      {
+        path: '/',
+        components: {
+          header,
+          sidebar,
+          main
+        }
+      }
+    ]
+  })
+
+  let vm = new Vue({
+    el: '#app',
+    data: {},
+    methods: {},
+    router: router
+  })
+</script>
+</body>
+</html>

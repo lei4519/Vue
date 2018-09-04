@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-link to="/account">Account</router-link>
+    <router-view></router-view>
+</div>
+
+<template id="tmpl">
+    <div>
+        <h1>Account 父组件</h1>
+        <router-link to="/account/login">登录</router-link>
+        <router-link to="/account/register">注册</router-link>
+        <router-view></router-view>
+    </div>
+</template>
+
+<script>
+  let account = {
+    template: '#tmpl'
+  }
+
+  let login = {
+    template: '<h2>登录子组件</h2>'
+  }
+
+  let register = {
+    template: '<h2>注册子组件</h2>'
+  }
+
+  let router = new VueRouter({
+    routes: [
+      // 在父组件的children属性中设置子路由组件的相关配置
+      {
+        path: '/account',
+        component: account,
+        // children的配置规则和routes很相似 区别在于routes配置父路由组件
+        // children 用来配置子路由组件 由于已经配置父路由的路径 所以子路由配置路径时不需要加上 "/"
+        // 如果加上则会从根路径去寻找子路由组件 这样不方便用户理解URL地址
+        children: [
+          {path: 'login', component: login},
+          {path: 'register', component: register}
+        ]
+      }
+    ]
+  })
+
+  let vm = new Vue({
+    el: '#app',
+    data: {},
+    methods: {},
+    router: router
+  })
+</script>
+</body>
+</html>
