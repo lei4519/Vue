@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      <!-- @keyup拥有局限性 只能监听DOM元素的数据变化 -->
+      <!-- methods 表示一个具体的操作 主要用来书写业务逻辑 -->
+      <!-- watch可以监听Vue实例上的所有数据变化 watch需要监听每一个属性的改变 如果我们需要监听多个属性来求值的话 watch就不是那么方便了 -->
+      <!-- watch是一个对象 键是需要观察的表达式 值是对应的回调函数 主要用来监听某些特定数据的变化 从而进行某些具体的业务逻辑操作 -->
+      <!-- computed中可以定义计算属性 在计算属性的内部通过数据来计算结果值 最终将这个结果值return出去 只要方法内部的数据发生改变就会重新计算这个属性的值 并且这个值会被缓存起来 方便下次调用 -->
+      <!-- computed的属性结果值会被缓存 除非依赖的响应式属性变化才会重新计算 主要当做属性来使用 -->
+
+      <!-- 使用keyup 事件监听输入框
+      <input type="text" v-model="firstname" @keyup="joinName"> +
+      <input type="text" v-model="lastname" @keyup="joinName"> =
+      <input type="text" v-model="fullname"> -->
+
+      <!-- 使用watch 监听数据改变
+      <input type="text" v-model="firstname"> +
+      <input type="text" v-model="lastname"> =
+      <input type="text" v-model="fullname"> -->
+
+      <!-- 使用computed监听数据改变 -->
+      <input type="text" v-model="firstname"> +
+      <input type="text" v-model="lastname"> =
+      <input type="text" v-model="fullname">
+      <!-- 第二次使用这个值的时候不会再次调用计算属性的方法 而是使用缓存中的结果值 -->
+      {{fullname}}
+    </div>
+
+
+    <script>
+        let vm = new Vue({
+          el: '#app',
+          data: {
+            firstname: '',
+            lastname: ''
+          },
+          methods: {
+            joinName () { // 使用keyup监听数据
+              if (this.firstname && this.lastname) {
+                this.fullname = this.firstname + '-' + this.lastname
+              }
+            }
+          },
+          watch: { // 使用watch属性可以监听data中的指定数据 数据发生改变就会触发对应的处理函数
+            // 函数名与需要监听的数据同名 在函数内部定义处理的逻辑代码
+            // 函数接受两个参数 (newValue, oldValue)
+            // firstname: function () {
+            //     if (this.firstname && this.lastname) {
+            //     this.fullname = this.firstname + '-' + this.lastname
+            //   }
+            // },
+            // lastname () {
+            //   if (this.firstname && this.lastname) {
+            //     this.fullname = this.firstname + '-' + this.lastname
+            //   }
+            // }
+          },
+          computed: {
+            // 在computed中 可以定义一些[计算属性] 这些属性本质上就是一个方法
+            // 只不过我们使用的时候 并不会把他们当做方法来调用 而是当做一个属性来使用
+            // 只要计算属性内部 用到的data中的数据发生了改变 就会重新计算这个属性的值
+            // 如果计算属性内部 用到的所有数据都没有发生改变 则不会重新计算这个属性的值
+            // 计算属性的求值结果会被缓存起来 方便下次直接使用
+            'fullname' () {
+              return this.firstname + '-' + this.lastname
+            }
+          }
+        })
+    </script>
+</body>
+</html>

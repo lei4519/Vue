@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <style>
+        /*高亮激活路由*/
+        .router-link-active, .myactive{
+            color: red;
+            font-weight: 900;
+        }
+        .v-enter,
+        .v-leave-to{
+            transform: translateX(150px);
+        }
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/login" tag="span">登录</router-link>
+        <router-link to="/register">注册</router-link>
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </div>
+
+
+    <script>
+        let login = {
+          template: '<h1>登录组件</h1>'
+        }
+        let register = {
+          template: '<h1>注册组件</h1>'
+        }
+        let router = new VueRouter({
+          routes: [
+            { path: '/', redirect: '/login' },
+            { path: '/login', component:login },
+            { path: '/register', component:register }
+          ],
+          linkActiveClass: 'myactive'
+        })
+
+
+
+        let vm = new Vue({
+          el: '#app',
+          data: {
+
+          },
+          methods: {
+
+          },
+          router,
+          watch: {
+            '$route.path' (newVal, oldVal) {
+              if (newVal === '/login') {
+                console.log('欢迎进入登录页面');
+              } else if (newVal === '/register') {
+                console.log('欢迎进入注册页面');
+              }
+            }
+          }
+        })
+    </script>
+</body>
+</html>
