@@ -1,9 +1,9 @@
 import $ from 'jquery'
 
 $(function () {
-  $('li:odd').css('background-color', 'lightblue')
+  $('li:odd').css('background-color', 'cyan')
   $('li:even').css('background-color', function () {
-      return '#' + 'D97634'
+      return '#' + 'f00012'
   })
 })
 
