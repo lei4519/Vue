@@ -1,0 +1,14 @@
+html, body{
+  margin: 0;
+  padding: 0;
+  li {
+    font-size: 12px;
+    line-height: 30px;
+  }
+  div{
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    background-image: url(../img/5.png);
+  }
+}
