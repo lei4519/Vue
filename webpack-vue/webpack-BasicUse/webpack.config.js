@@ -5,6 +5,8 @@ const webpack = require('webpack')
 // 1 自动在内存中根据指定页面生成一个内存中的页面
 // 2 自动把打包好的bundle.js追加到页面中去
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+// vue-loader对应插件
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
 	mode: 'development',
@@ -29,7 +31,8 @@ module.exports = {
 			// 指定模板页面路径和名称
 			template: path.resolve(__dirname, './src/index.html'),
 			filename: 'index.html'
-		})
+		}),
+		new VueLoaderPlugin()
 	],
   module: { // 配置所有的第三方模块加载器
     rules: [ // 所有第三方模块的匹配规则
@@ -39,7 +42,8 @@ module.exports = {
 			// limit 给定的值是图片的大小 单位是byte 如果我们引用的图片大于等于给定的值 则不会转换为base64位格式的字符串
       {test: /\.(jpg|png|gif|bmp)$/, use: 'url-loader?limit=1024'},
       {test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader'},
-			{test: /\.js$/, exclude: /node_modules/, use: 'babel-loader'}
+      {test: /\.js$/, exclude: /node_modules/, use: 'babel-loader'},
+      {test: /\.vue$/, use: 'vue-loader'},
 		]
   }
 }
