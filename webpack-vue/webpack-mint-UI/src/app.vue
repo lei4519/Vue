@@ -11,18 +11,27 @@
 </template>
 
 <script>
-    import {Toast} from 'mint-ui'
+  import {Toast} from 'mint-ui'
 
   export default {
-    data: () => ({}),
+    data: () => ({instance: null}),
     methods: {
+      getList () {
+        this.show()
+        setTimeout(() => this.instance.close(), 3000)
+      },
       show () {
-        Toast({
+        this.instance = Toast({
           message: '提示消息',
           position: 'bottom',
-          duration: 1000
+          duration: -1,
+          iconClass: 'glyphicon glyphicon-heart',
+          className: 'icon-heart'
         })
       }
+    },
+    created () {
+      this.getList()
     }
   }
 </script>
