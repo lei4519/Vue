@@ -1,15 +1,13 @@
 <template>
-    <h1>login组件</h1>
+    <h1>register组件</h1>
 </template>
 
 <script>
   export default {
-    name: 'login'
+    name: 'register'
   }
 </script>
 
 <style scoped>
-h1{
-    color: #f00;
-}
+
 </style>

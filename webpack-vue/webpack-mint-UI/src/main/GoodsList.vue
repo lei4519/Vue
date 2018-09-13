@@ -1,15 +1,16 @@
 <template>
-    <h1>login组件</h1>
+    <div>
+        <h1>
+            这是GoodsList组件
+        </h1>
+    </div>
 </template>
 
 <script>
   export default {
-    name: 'login'
   }
 </script>
 
 <style scoped>
-h1{
-    color: #f00;
-}
+
 </style>
