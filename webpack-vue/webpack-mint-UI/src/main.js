@@ -1,7 +1,5 @@
 import Vue from 'vue'
-import app from './app.vue'
 import router from './router'
-
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 // 完整导入mint-UI
@@ -11,12 +9,13 @@ Vue.use(VueRouter)
 
 // 按需导入mint-UI
 import { Button } from 'mint-ui'
-import 'mint-ui/lib/style.css'
 Vue.component(Button.name, Button)
 
+import 'mint-ui/lib/style.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import './css/app.css'
 
+import app from './app.vue'
 
 let vm = new Vue({
   el: '#app',
