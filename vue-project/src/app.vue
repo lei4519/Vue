@@ -4,7 +4,7 @@
 		<mt-header fixed title="固定在顶部"></mt-header>
 
         <!-- router-view -->
-        <transition mode="out-in">
+        <transition>
 			<router-view></router-view>
         </transition>
 
@@ -47,10 +47,22 @@ export default {
 .app-container{
 	padding-top: 40px;
 	padding-bottom: 50px;
+	overflow: hidden;
 }
+
+.v-enter{
+	opacity: 0;
+	transform: translateX(100%);
+}
+.v-leave-to{
+	opacity: 0;
+	transform: translateX(-100%);
+	position: absolute;
+}
+
 .v-enter-active,
 .v-leave-active{
-	transition: all 1s ease;
+	transition: all 0.5s ease;
 }
 
 </style>

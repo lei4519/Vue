@@ -6,6 +6,7 @@ import router from './router.js'
 
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
+Vue.http.options.root = 'http://47.89.21.179:8080';
 
 import { Header, Swipe, SwipeItem } from 'mint-ui'
 Vue.component(Header.name, Header)
