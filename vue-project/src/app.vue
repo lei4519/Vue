@@ -1,7 +1,11 @@
 <template>
     <div class="app-container">
         <!-- Header -->
-		<mt-header fixed title="固定在顶部"></mt-header>
+		<mt-header fixed title="Vue-project">
+			<router-link to="/" slot="left" v-if="backShowFlag">
+		    	<mt-button icon="back">返回</mt-button>
+		  </router-link>
+		</mt-header>
 
         <!-- router-view -->
         <transition>
@@ -33,11 +37,16 @@
 <script>
 export default {
 	data: () => ({
-		
+		backShowFlag: false,
 	}),
 	methods: {
-		active () {
-
+		back () {
+			console.log(history);
+		}
+	},
+	watch: {
+		$route (to) {
+			this.backShowFlag = to.fullPath.substr(1).includes('/')
 		}
 	}
 }
