@@ -8,7 +8,7 @@
 
         <ul class="mui-table-view mui-grid-view mui-grid-9">
             <li class="mui-table-view-cell mui-media mui-col-xs-4" v-for="item in menuList" :key="item.url">
-                <router-link :to="'/home' + item.url">
+                <router-link :to="`/home${item.url}`">
                     <span :class="item.className"></span>
                     <div class="mui-media-body">{{ item.title }}</div>
                 </router-link>

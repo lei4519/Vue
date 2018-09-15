@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { Toast } from 'mint-ui'
+  import { Toast } from 'mint-ui'
 export default {
 	data: () => ({
 		newsList: []
@@ -29,9 +29,9 @@ export default {
 			.then(result => {
 				if (result.body.status === 0) {
 					this.newsList = result.body.message
-				}
-			}, (err) => {
-				Toast('加载数据失败')
+				} else {
+                  Toast('加载数据失败')
+                }
 			})
 		}
 	},

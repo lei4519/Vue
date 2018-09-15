@@ -7,12 +7,14 @@ import router from './router.js'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 Vue.http.options.root = 'http://47.89.21.179:8080';
+Vue.http.options.emulateJSON = true;
 
-import { Header, Swipe, SwipeItem, Button } from 'mint-ui'
+import { Header, Swipe, SwipeItem, Button, Lazyload } from 'mint-ui'
 Vue.component(Header.name, Header)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Button.name, Button)
+Vue.use(Lazyload)
 
 import './lib/mui/dist/css/mui.min.css'
 import './lib/mui/dist/css/icons-extra.css'
