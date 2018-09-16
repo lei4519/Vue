@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <ul>
+        <ul class="img-box">
             <li v-for="(item, i) in imgList" :key="item.id">
                 <img v-lazy="`/src/img/1 (${i+1}).jpg`">
             </li>
@@ -68,5 +68,15 @@
         width: 40px;
         height: 300px;
         margin: auto;
+    }
+    .img-box{
+      list-style: none;
+      margin: 0;
+      padding: 5px;
+      img{
+        border-radius: 10px;
+        height: 100%;
+        width: 100%;
+      }
     }
 </style>
