@@ -6,6 +6,8 @@ import Search from './components/tabBar/SearchContainer.vue'
 import NewsList from './components/news/NewsList.vue'
 import NewsInfo from './components/news/NewsInfo.vue'
 import PhotoList from './components/photos/PhotoList.vue'
+import PhotoInfo from './components/photos/PhotoInfo.vue'
+import GoodsList from './components/goods/GoodsList.vue'
 
 let router = new VueRouter({
   routes: [
@@ -16,7 +18,9 @@ let router = new VueRouter({
   	{path: '/search', component: Search},
   	{path: '/home/news', component: NewsList},
   	{path: '/home/newsinfo/:id', component: NewsInfo},
-		{path: '/home/share', component: PhotoList}
+    {path: '/home/share', component: PhotoList},
+    {path: '/home/shareinfo/:id', component: PhotoInfo},
+    {path: '/home/buy', component: GoodsList}
   ],
   linkActiveClass: 'mui-active'
 })

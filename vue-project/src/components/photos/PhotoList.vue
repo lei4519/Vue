@@ -10,10 +10,14 @@
             </div>
         </div>
 
-        <ul class="img-box">
-            <li v-for="(item, i) in imgList" :key="item.id">
+        <ul class="photo-list">
+            <router-link tag="li" v-for="(item, i) in imgList" :key="item.id" :to="`/home/shareinfo/${item.id}`">
                 <img v-lazy="`/src/img/1 (${i+1}).jpg`">
-            </li>
+                <div class="info">
+                    <h1 class="info-title">{{ item.title }}</h1>
+                    <div class="info-body">{{ item.zhaiyao }}</div>
+                </div>
+            </router-link>
         </ul>
     </div>
 </template>
@@ -64,19 +68,42 @@
     * {
         touch-action: pan-y;
     }
-    img[lazy=loading] {
-        width: 40px;
-        height: 300px;
-        margin: auto;
-    }
-    .img-box{
-      list-style: none;
-      margin: 0;
-      padding: 5px;
-      img{
-        border-radius: 10px;
-        height: 100%;
-        width: 100%;
-      }
+
+    .photo-list {
+        list-style: none;
+        margin: 0;
+        padding: 10px;
+        li {
+            background-color: #ccc;
+            text-align: center;
+            margin-bottom: 10px;
+            box-shadow: 0 0 9px #999;
+            position: relative;
+            img {
+                height: 100%;
+                width: 100%;
+                vertical-align: top;
+            }
+            img[lazy=loading] {
+                width: 40px;
+                height: 300px;
+                margin: auto;
+            }
+            .info{
+                padding: 5px;
+                text-align: left;
+                position: absolute;
+                bottom: 0;
+                color: #fff;
+                background-color: rgba(0, 0, 0, 0.4);
+                max-height: 90px;
+                .info-title{
+                    font-size: 14px;
+                }
+                .info-body{
+                    font-size: 13px;
+                }
+            }
+        }
     }
 </style>

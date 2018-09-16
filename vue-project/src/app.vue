@@ -64,6 +64,9 @@
         padding-top: 40px;
         padding-bottom: 50px;
         overflow: hidden;
+        .mint-header{
+            z-index: 9999;
+        }
         .mui-bar-tab{
             .mui-tab-item-l {
                 display: table-cell;
