@@ -2,7 +2,7 @@
     <div class="app-container">
         <!-- Header -->
         <mt-header fixed title="Vue-project">
-            <span slot="left" @click="goBack" v-show="backShowFlag">
+            <span slot="left" @click="$router.back()" v-show="backShowFlag">
                 <mt-button icon="back">返回</mt-button>
             </span>
         </mt-header>
@@ -23,7 +23,8 @@
                 <span class="mui-tab-label">会员</span>
             </router-link>
             <router-link class="mui-tab-item-l" to="/cart">
-                <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">0</span></span>
+                <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge"
+                                                                                id="badge">{{ $store.getters.getAllCount }}</span></span>
                 <span class="mui-tab-label">购物车</span>
             </router-link>
             <router-link class="mui-tab-item-l" to="/search">
@@ -39,20 +40,15 @@
     data: () => ({
       backShowFlag: false
     }),
-    methods: {
-      goBack() {
-        this.$router.back()
-      }
-    },
     created() {
       this.backShowFlag = this.$route.path === '/home' ? false : true
     },
     watch: {
-      "$route.path": function(newVal) {
-        if (newVal === "/home") {
-          this.backShowFlag = false;
+      '$route.path': function (newVal) {
+        if (newVal === '/home') {
+          this.backShowFlag = false
         } else {
-          this.backShowFlag = true;
+          this.backShowFlag = true
         }
       }
     }
@@ -64,10 +60,10 @@
         padding-top: 40px;
         padding-bottom: 50px;
         overflow: hidden;
-        .mint-header{
+        .mint-header {
             z-index: 9999;
         }
-        .mui-bar-tab{
+        .mui-bar-tab {
             .mui-tab-item-l {
                 display: table-cell;
                 overflow: hidden;
@@ -88,7 +84,7 @@
                     padding-top: 0;
                     padding-bottom: 0;
                 }
-                .mui-icon~.mui-tab-label {
+                .mui-icon ~ .mui-tab-label {
                     font-size: 11px;
                     display: block;
                     overflow: hidden;
@@ -113,4 +109,5 @@
     .v-leave-active {
         transition: all 0.5s ease;
     }
+
 </style>

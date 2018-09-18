@@ -3,7 +3,9 @@
         <div id="slider" class="mui-slider">
             <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
                 <div class="mui-scroll">
-                    <a @click="getPhotoListByCateId(item.id)" :class="['mui-control-item', item.id === 0 ? ' mui-active' : '']" href="javascrpt:;" v-for="item in imgCategory" :key="item.id">
+                    <a @click="getPhotoListByCateId(item.id)"
+                       :class="['mui-control-item', item.id === 0 ? ' mui-active' : '']" href="javascrpt:;"
+                       v-for="item in imgCategory" :key="item.id">
                         {{ item.title }}
                     </a>
                 </div>
@@ -24,7 +26,7 @@
 
 <script>
   import mui from '../../lib/mui/dist/js/mui.min.js'
-  import { Toast } from 'mint-ui'
+  import {Toast} from 'mint-ui'
 
   export default {
     data: () => ({
@@ -46,7 +48,7 @@
       getPhotoListByCateId(cateId) {
         this.$http.get(`api/getimages/${cateId}`)
           .then(result => {
-            if (result.body.status === 0){
+            if (result.body.status === 0) {
               this.imgList = result.body.message
             } else {
               Toast('加载图片失败')
@@ -89,7 +91,7 @@
                 height: 300px;
                 margin: auto;
             }
-            .info{
+            .info {
                 padding: 5px;
                 text-align: left;
                 position: absolute;
@@ -97,10 +99,10 @@
                 color: #fff;
                 background-color: rgba(0, 0, 0, 0.4);
                 max-height: 90px;
-                .info-title{
+                .info-title {
                     font-size: 14px;
                 }
-                .info-body{
+                .info-body {
                     font-size: 13px;
                 }
             }

@@ -1,6 +1,6 @@
 <template>
     <div class="goods-list">
-        <div class="goods-item" v-for="(item, i) in goodsList" :key="i">
+        <div class="goods-item" v-for="(item, i) in goodsList" :key="i" @click="goDetail(item.id)">
             <img :src="`/src/img/1 (${i+1}).jpg`">
             <h1 class="title">{{ item.title }}</h1>
             <div class="info">
@@ -44,6 +44,9 @@
             }
           })
       },
+      goDetail(id) {
+        this.$router.push({name: 'goodsinfo', params: { id }})
+      }
     },
     created() {
       this.getGoodsList()
@@ -98,7 +101,7 @@
                 }
             }
         }
-        .noMore{
+        .noMore {
             text-align: center;
             width: 100%;
         }

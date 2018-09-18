@@ -22,15 +22,18 @@
 </template>
 
 <script>
-  import { Toast } from 'mint-ui'
+  import {Toast} from 'mint-ui'
+
   export default {
     props: ['id'],
-    data: () => ({
-      comment: '',
-      commentsList: [],
-      pageIndex: 0,
-      flag: true
-    }),
+    data() {
+      return {
+        comment: '',
+        commentsList: [],
+        pageIndex: 0,
+        flag: true
+      }
+    },
     methods: {
       getCommentsList() {
         this.pageIndex++
@@ -50,15 +53,15 @@
       commitComment() {
         if (!this.comment.trim()) return Toast('评论不能为空')
 
-        this.$http.post(`api/postcomment/${this.id}`, { content: this.comment.trim() })
+        this.$http.post(`api/postcomment/${this.id}`, {content: this.comment.trim()})
           .then(result => {
             if (result.body.status === 0) {
-                let cmt = {
-                  user_name: '匿名用户',
-                  add_time: Date.now(),
-                  content: this.comment.trim()
-                }
-                this.commentsList.unshift(cmt)
+              let cmt = {
+                user_name: '匿名用户',
+                add_time: Date.now(),
+                content: this.comment.trim()
+              }
+              this.commentsList.unshift(cmt)
             }
           })
       }
@@ -93,7 +96,7 @@
                 }
             }
         }
-        .noMore{
+        .noMore {
             text-align: center;
             font-size: 16px;
             line-height: 30px;

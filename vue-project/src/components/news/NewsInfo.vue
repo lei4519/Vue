@@ -54,7 +54,7 @@ export default {
 	}
 	.subtitle{
 		font-size: 13px;
-		color: #226aff;
+		color: #26a2ff;
 		display: flex;
 		justify-content: space-between;
 	}
